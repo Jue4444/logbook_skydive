@@ -230,17 +230,19 @@ root.title("Carnet de Saut")
 add_saut_frame = tk.Frame(root)
 add_saut_frame.pack(padx=10, pady=10)
 
-# Créer les champs d'entrée
-label_nb_sauts = tk.Label(add_saut_frame, text="Combien de sauts avez-vous fait aujourd'hui ?")
-label_nb_sauts.grid(row=0, column=0, sticky=tk.W)
-entry_nb_sauts = tk.Entry(add_saut_frame)
-entry_nb_sauts.grid(row=0, column=1)
-
+# Créer les champs d'entrée pour la date
 label_date = tk.Label(add_saut_frame, text="Date (JJ/MM/AAAA) :")
-label_date.grid(row=1, column=0, sticky=tk.W)
+label_date.grid(row=0, column=0, sticky=tk.W)
 entry_date = tk.Entry(add_saut_frame)
-entry_date.grid(row=1, column=1)
+entry_date.grid(row=0, column=1)
 
+# Champ pour le nombre de sauts
+label_nb_sauts = tk.Label(add_saut_frame, text="Combien de sauts avez-vous fait aujourd'hui ?")
+label_nb_sauts.grid(row=1, column=0, sticky=tk.W)
+entry_nb_sauts = tk.Entry(add_saut_frame)
+entry_nb_sauts.grid(row=1, column=1)
+
+# Autres champs d'entrée
 label_lieu = tk.Label(add_saut_frame, text="Lieu :")
 label_lieu.grid(row=2, column=0, sticky=tk.W)
 entry_lieu = tk.Entry(add_saut_frame)
@@ -251,35 +253,31 @@ label_avion.grid(row=3, column=0, sticky=tk.W)
 entry_avion = tk.Entry(add_saut_frame)
 entry_avion.grid(row=3, column=1)
 
-label_hauteur = tk.Label(add_saut_frame, text="Hauteur (en mètres) :")
+label_hauteur = tk.Label(add_saut_frame, text="Hauteur (m) :")
 label_hauteur.grid(row=4, column=0, sticky=tk.W)
 entry_hauteur = tk.Entry(add_saut_frame)
 entry_hauteur.grid(row=4, column=1)
 
-label_voile = tk.Label(add_saut_frame, text="Voile utilisée :")
+label_voile = tk.Label(add_saut_frame, text="Voile :")
 label_voile.grid(row=5, column=0, sticky=tk.W)
 entry_voile = tk.Entry(add_saut_frame)
 entry_voile.grid(row=5, column=1)
 
-# Créer des entrées pour le nombre de sauts de chaque type
+# Champs pour les types de saut
 entry_counts = {}
-label_type = tk.Label(add_saut_frame, text="Nombre de sauts par type :")
-label_type.grid(row=6, column=0, sticky=tk.W, columnspan=2)
+row = 6
+for type_saut in TYPES_AUTORISES.keys():
+    label = tk.Label(add_saut_frame, text=type_saut + " :")
+    label.grid(row=row, column=0, sticky=tk.W)
+    entry_counts[type_saut] = tk.Entry(add_saut_frame)
+    entry_counts[type_saut].grid(row=row, column=1)
+    row += 1
 
-for i, key in enumerate(TYPES_AUTORISES.keys()):
-    label = tk.Label(add_saut_frame, text=f"{key} :")
-    label.grid(row=7 + i, column=0, sticky=tk.W)
-    entry = tk.Entry(add_saut_frame)
-    entry.grid(row=7 + i, column=1)
-    entry_counts[key] = entry
+# Boutons
+btn_ajouter = tk.Button(root, text="Ajouter saut", command=ajouter_saut)
+btn_ajouter.pack(pady=5)
 
-# Bouton pour ajouter le saut
-button_ajouter = tk.Button(add_saut_frame, text="Ajouter Saut", command=ajouter_saut)
-button_ajouter.grid(row=7 + len(TYPES_AUTORISES), column=0, columnspan=2)
+btn_afficher = tk.Button(root, text="Afficher les sauts", command=afficher_sauts)
+btn_afficher.pack(pady=5)
 
-# Bouton pour afficher les sauts
-button_afficher = tk.Button(root, text="Afficher Sauts", command=afficher_sauts)
-button_afficher.pack(pady=10)
-
-# Lancer la boucle principale
 root.mainloop()
