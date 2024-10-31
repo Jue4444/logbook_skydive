@@ -235,12 +235,12 @@ add_saut_frame.pack(padx=10, pady=10)
 
 # Créer les champs d'entrée
 label_date = tk.Label(add_saut_frame, text="Date (JJ/MM/AAAA) :")
-label_date.grid(row=1, column=0, sticky=tk.W)
+label_date.grid(row=0, column=0, sticky=tk.W)
 entry_date = tk.Entry(add_saut_frame)
 entry_date.grid(row=0, column=1)
 
 label_nb_sauts = tk.Label(add_saut_frame, text="Combien de sauts avez-vous fait aujourd'hui ?")
-label_nb_sauts.grid(row=0, column=0, sticky=tk.W)
+label_nb_sauts.grid(row=1, column=0, sticky=tk.W)
 entry_nb_sauts = tk.Entry(add_saut_frame)
 entry_nb_sauts.grid(row=1, column=1)
 
