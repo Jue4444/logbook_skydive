@@ -26,7 +26,7 @@ TYPES_AUTORISES = {
     "Anim Freefly": "Anim FF",
     "Anim Vol Relatif": "Anim VR",
     "Hop & Pop": "H&P",
-    "2way Tibo": "2way <3",
+    "2way Tibo": "2way Tibo",
 }
 
 def valider_date(date_str):
