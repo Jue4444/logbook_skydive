@@ -10,24 +10,23 @@ from datetime import datetime
 # Charger le DataFrame des sauts depuis le fichier
 df_sauts = charger_sauts()
 
-# Dictionnaire des types de saut autorisés avec leurs abréviations
-TYPES_AUTORISES = {
-    "Freefly": "FF",
-    "Vol Relatif": "VR",
-    "Wingsuit": "WS",
-    "PAC": "PAC",
-    "Solo": "SO",
-    "Tandem": "TA",
-    "Video Tandem": "VDO",
-    "BPJEPS PAC": "BPJEPS",
-    "Init B2": "Init B2",
-    "Init B4": "Init B4",
-    "Init Bi4": "Init B4",
-    "Anim Freefly": "Anim FF",
-    "Anim Vol Relatif": "Anim VR",
-    "Hop & Pop": "H&P",
-    "2way Tibo": "2way Tibo",
-}
+# Liste des types de saut autorisés 
+TYPES_SAUTS = [
+    "Freefly",
+    "Vol Relatif",
+    "Wingsuit",
+    "PAC",
+    "Solo",
+    "Tandem",
+    "Video Tandem",
+    "BPJEPS PAC",
+    "Init B2",
+    "Init B4",
+    "Anim Freefly",
+    "Anim Vol Relatif",
+    "Hop & Pop",
+    "2way Tibo"
+]
 
 def valider_date(date_str):
     """Vérifie si la date est au format JJ/MM/AAAA et est valide."""
@@ -67,12 +66,12 @@ def ajouter_saut():
     total_sauts = 0
     types_sauts = {}
 
-    for key in TYPES_AUTORISES.keys():
+    for type_saut in TYPES_SAUTS:
         try:
-            count = int(entry_counts[key].get())
+            count = int(entry_counts[type_saut].get())
             if count < 0:
                 raise ValueError("Le nombre de sauts ne peut pas être négatif.")
-            types_sauts[key] = count
+            types_sauts[type_saut] = count
             total_sauts += count
         except ValueError:
             continue  # Ignorer les entrées non valides
@@ -269,16 +268,16 @@ entry_counts = {}
 label_type = tk.Label(add_saut_frame, text="Nombre de sauts par type :")
 label_type.grid(row=6, column=0, sticky=tk.W, columnspan=2)
 
-for i, key in enumerate(TYPES_AUTORISES.keys()):
-    label = tk.Label(add_saut_frame, text=f"{key} :")
+for i, type_saut in enumerate(TYPES_SAUTS):
+    label = tk.Label(add_saut_frame, text=f"{type_saut} :")
     label.grid(row=7 + i, column=0, sticky=tk.W)
     entry = tk.Entry(add_saut_frame)
     entry.grid(row=7 + i, column=1)
-    entry_counts[key] = entry
+    entry_counts[type_saut] = entry
 
 # Bouton pour ajouter le saut
 button_ajouter = tk.Button(add_saut_frame, text="Ajouter Saut", command=ajouter_saut)
-button_ajouter.grid(row=7 + len(TYPES_AUTORISES), column=0, columnspan=2)
+button_ajouter.grid(row=7 + len(TYPES_SAUTS), column=0, columnspan=2)
 
 # Bouton pour afficher les sauts
 button_afficher = tk.Button(root, text="Afficher Sauts", command=afficher_sauts)
